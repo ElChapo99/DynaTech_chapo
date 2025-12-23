@@ -21,14 +21,14 @@ public class TimedRecipe extends Recipe {
     }
 
     public TimedRecipe setTimeInTicks(int ticks) {
-        Preconditions.checkNotNull(ticks, "The recipe's time in ticks should not be null");
+        Preconditions.checkNotNull(ticks, "El tiempo en ticks de la receta no debe ser nulo");
         this.TIME_IN_TICKS = ticks;
         return this;
     }
 
     @Override
     public TimedRecipe build() {
-        Preconditions.checkNotNull(this.TIME_IN_TICKS, "The recipe's time in ticks should not be null");
+        Preconditions.checkNotNull(this.TIME_IN_TICKS, "El tiempo en ticks de la receta no debe ser nulo");
         super.validate();
         return this;
     }
@@ -41,3 +41,4 @@ public class TimedRecipe extends Recipe {
         return res;
     }
 }
+
