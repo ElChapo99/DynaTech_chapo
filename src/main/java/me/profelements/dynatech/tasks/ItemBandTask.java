@@ -15,26 +15,26 @@ import org.bukkit.potion.PotionEffectType;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class ItemBandTask implements Runnable {
+public class TareaItemBand implements Runnable {
 
-    //The value if not null will be a SlIMEFUN_ID that is an Item
+    // El valor, si no es nulo, será un SlIMEFUN_ID que representa un ítem
 
-    public ItemBandTask() {}
+    public TareaItemBand() {}
 
     @Override
     public void run() {
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            if (!p.isValid() || p.isDead()) {
+        for (Player jugador : Bukkit.getOnlinePlayers()) {
+            if (!jugador.isValid() || jugador.isDead()) {
                 continue;
             }
-            for (ItemStack item : p.getEquipment().getArmorContents()) {
-                testItemBand(p, item);
+            for (ItemStack item : jugador.getEquipment().getArmorContents()) {
+                comprobarItemBand(jugador, item);
             }
-            testItemBand(p, p.getEquipment().getItemInMainHand());
+            comprobarItemBand(jugador, jugador.getEquipment().getItemInMainHand());
         }
     }
 
-    private static void testItemBand(@Nonnull Player p, @Nullable ItemStack item) {
+    private static void comprobarItemBand(@Nonnull Player jugador, @Nullable ItemStack item) {
         if (item != null && item.getType() != Material.AIR && item.hasItemMeta()) {
             String id = PersistentDataAPI.getString(item.getItemMeta(), ItemBand.KEY);
 
@@ -45,19 +45,17 @@ public class ItemBandTask implements Runnable {
                     ItemBand itemBand = (ItemBand) sfItem;
 
                     DynaTech.runSync(() -> {
-                        for (PotionEffect pe : itemBand.getPotionEffects()) {
-                            if (pe.getType() == PotionEffectType.HEALTH_BOOST)
-                            {
-                                double health = p.getHealth();
-                                p.addPotionEffect(pe);
-                                if (health > p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) {
-                                    p.setHealth(p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+                        for (PotionEffect efecto : itemBand.getPotionEffects()) {
+                            if (efecto.getType() == PotionEffectType.HEALTH_BOOST) {
+                                double saludActual = jugador.getHealth();
+                                jugador.addPotionEffect(efecto);
+                                if (saludActual > jugador.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) {
+                                    jugador.setHealth(jugador.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
                                 } else {
-                                    p.setHealth(health);
+                                    jugador.setHealth(saludActual);
                                 }
-                                
                             } else {
-                                p.addPotionEffect(pe);
+                                jugador.addPotionEffect(efecto);
                             }
                         }
                     });
