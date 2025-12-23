@@ -67,6 +67,7 @@ public class DynaTech extends JavaPlugin implements SlimefunAddon {
             worldCreator.generator(new DimensionalHomeDimension());
             worldCreator.createWorld();
         }
+
         DynaTechLiquids.registerLiquids(DynaTech.getLiquidRegistry());
 
         DynaTechItemsSetup.setup(this);
@@ -77,29 +78,43 @@ public class DynaTech extends JavaPlugin implements SlimefunAddon {
         new CoalCokeListener(this);
         new BlockBreakBlockListener(this);
         new RegistryListeners(this);
+
         try {
             Class.forName("io.github.schntgaispock.gastronomicon.api.items.FoodItemStack");
             new GastronomiconIntegrationListener(this);
         } catch (ClassNotFoundException ex) {
-
+            // Gastronomicon no está instalado
         }
 
         try {
             Class.forName("io.github.thebusybiscuit.exoticgarden.items.CustomFood");
             new ExoticGardenIntegrationListener(this);
         } catch (ClassNotFoundException ex) {
+            // ExoticGarden no está instalado
         }
 
-        // Tasks
-        getServer().getScheduler().runTaskTimerAsynchronously(DynaTech.getInstance(), new ItemBandTask(), 0L, 5 * 20L);
-        getServer().getScheduler().runTaskTimer(DynaTech.getInstance(), () -> this.tickInterval++, 0, TICK_TIME);
+        // Tareas
+        getServer().getScheduler().runTaskTimerAsynchronously(
+                DynaTech.getInstance(),
+                new ItemBandTask(),
+                0L,
+                5 * 20L
+        );
 
-        if (getConfig().getBoolean("options.auto-update", true) && getDescription().getVersion().startsWith("Main")) {
+        getServer().getScheduler().runTaskTimer(
+                DynaTech.getInstance(),
+                () -> this.tickInterval++,
+                0,
+                TICK_TIME
+        );
+
+        if (getConfig().getBoolean("options.auto-update", true)
+                && getDescription().getVersion().startsWith("Main")) {
             new BlobBuildUpdater(this, getFile(), "DynaTech", "Main").start();
         }
 
         if (!Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_19)) {
-            getLogger().warning("DynaTech only support 1.19+, disabling.");
+            getLogger().warning("DynaTech solo es compatible con Minecraft 1.19 o superior. Deshabilitando el plugin.");
             getServer().getPluginManager().disablePlugin(this);
         }
 
@@ -110,17 +125,16 @@ public class DynaTech extends JavaPlugin implements SlimefunAddon {
         ItemGroups.init(Registries.ITEM_GROUPS);
         RecipeTypes.init(Registries.RECIPE_TYPES);
         Recipes.init(Registries.RECIPES);
+
         Registries.ITEMS.freeze();
         Registries.ITEM_GROUPS.freeze();
         Registries.RECIPE_TYPES.freeze();
         Registries.RECIPES.freeze();
-
     }
 
     @Override
     public void onDisable() {
         Bukkit.getScheduler().cancelTasks(this);
-
         setInstance(null);
     }
 
@@ -176,7 +190,7 @@ public class DynaTech extends JavaPlugin implements SlimefunAddon {
 
     @Nullable
     public static BukkitTask runSync(@Nonnull Runnable runnable) {
-        Preconditions.checkNotNull(runnable, "Cannot run null");
+        Preconditions.checkNotNull(runnable, "No se puede ejecutar una tarea nula");
 
         if (instance == null || !instance.isEnabled()) {
             return null;
@@ -184,5 +198,4 @@ public class DynaTech extends JavaPlugin implements SlimefunAddon {
 
         return instance.getServer().getScheduler().runTask(getInstance(), runnable);
     }
-
 }
