@@ -61,14 +61,14 @@ public class FluidTankAdapter {
 
         Levelled lvl = (Levelled) block.getBlockData();
 
-        // Level 0 is special cased as a source block of water or lava.
-        // Cauldron level starts at 1;
-        // Max cauldron level = 3. so this is a Levelled source we can't use
+        // El nivel 0 es un caso especial como bloque fuente de agua o lava.
+        // El nivel del caldero comienza en 1;
+        // Nivel máximo del caldero = 3, por lo que este es un Levelled fuente que no podemos usar
         if (lvl.getLevel() > 3) {
             return null;
         }
 
-        // This is either Material.LAVA, or Material.WATER
+        // Esto es Material.LAVA o Material.WATER
         if (lvl.getLevel() == 0) {
             switch (block.getType()) {
                 case Material.WATER:
@@ -87,3 +87,4 @@ public class FluidTankAdapter {
         return null;
     }
 }
+
