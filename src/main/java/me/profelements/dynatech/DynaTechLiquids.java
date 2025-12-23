@@ -11,12 +11,12 @@ public class DynaTechLiquids {
 
     public static void registerLiquids(LiquidRegistry registry) {
 
-        // START Vanilla
+        // INICIO Vanilla
 
-        // Water
+        // Agua
         Liquid.init()
                 .setKey(new NamespacedKey(NamespacedKey.MINECRAFT, "water"))
-                .setName("Water")
+                .setName("Agua")
                 .setColor(Color.BLUE)
                 .setLiquidMaterial(Material.WATER)
                 .setStorageMaterial(Material.LIGHT_BLUE_STAINED_GLASS_PANE)
@@ -31,32 +31,33 @@ public class DynaTechLiquids {
                 .setStorageMaterial(Material.ORANGE_STAINED_GLASS_PANE)
                 .register(registry);
 
-        // Honey
+        // Miel
         Liquid.init()
                 .setKey(new NamespacedKey(NamespacedKey.MINECRAFT, "honey"))
-                .setName("Honey")
+                .setName("Miel")
                 .setColor(Color.YELLOW)
                 .setLiquidMaterial(Material.LAVA)
                 .setStorageMaterial(Material.YELLOW_STAINED_GLASS_PANE)
                 .register(registry);
 
-        // Potion
+        // Poción
         Liquid.init()
                 .setKey(new NamespacedKey(NamespacedKey.MINECRAFT, "potion"))
-                .setName("Potion")
+                .setName("Poción")
                 .setColor(Color.WHITE)
                 .setLiquidMaterial(Material.WATER)
                 .setStorageMaterial(Material.WHITE_STAINED_GLASS_PANE)
                 .register(registry);
 
-        // Milk
+        // Leche
         Liquid.init()
                 .setKey(new NamespacedKey(NamespacedKey.MINECRAFT, "milk"))
-                .setName("Milk")
+                .setName("Leche")
                 .setColor(Color.WHITE)
                 .setLiquidMaterial(Material.WATER)
                 .setStorageMaterial(Material.WHITE_STAINED_GLASS_PANE)
                 .register(registry);
-        // END Vanilla
+
+        // FIN Vanilla
     }
 }
