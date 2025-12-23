@@ -1,24 +1,24 @@
-## CHANGE this to the name of your plugin.
+## CAMBIA esto por el nombre de tu plugin.
 name: DynaTech
 
-## CHANGE this to your username.
+## CAMBIA esto por tu nombre de usuario.
 author: ProfElements
 
-## CHANGE this to a meaninful but short description of your plugin.
-description: A slimefun addon that add random stuff I want
+## CAMBIA esto por una descripción significativa pero corta de tu plugin.
+description: Un addon de Slimefun que agrega cosas aleatorias que quiero
 
-## CHANGE this to the path of the class that extends JavaPlugin.
+## CAMBIA esto por la ruta de la clase que extiende JavaPlugin.
 main: me.profelements.dynatech.DynaTech
 
-## You can change this to link to your website or repository. You can also remove this line if you want to.
+## Puedes cambiar esto para enlazar tu sitio web o repositorio. También puedes eliminar esta línea si lo deseas.
 website: https://github.com/ProfElements/DynaTech
 
-## This is required and marks Slimefun as a plugin dependency.
+## Esto es obligatorio y marca a Slimefun como dependencia del plugin.
 depend: [Slimefun]
 softdepend: [ExoticGarden, InfinityExpansion, Gastronomicon]
 
-## This value is automatically replaced by the version specified in your pom.xml file, do not change this.
+## Este valor se reemplaza automáticamente por la versión especificada en tu archivo pom.xml, no lo cambies.
 version: ${project.version}
 
-## This is the minimum minecraft version required to run your plugin.
+## Esta es la versión mínima de Minecraft requerida para ejecutar tu plugin.
 api-version: 1.19
