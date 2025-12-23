@@ -94,7 +94,6 @@ public class FluidTank extends SlimefunItem implements Listener {
                     stack.amount());
 
             handFluid = FluidStack.of(stack.fluid(), amount + stack.amount());
-
         }
 
         if (handFluid.amount() == 16000) {
@@ -102,8 +101,8 @@ public class FluidTank extends SlimefunItem implements Listener {
         }
 
         ArrayList<String> lore = new ArrayList<>();
-        lore.add(ChatColor.WHITE + "Fluid Held: " + handFluid.fluid().toString());
-        lore.add(ChatColor.WHITE + "Fluid Amount: " + String.valueOf(handFluid.amount()));
+        lore.add(ChatColor.WHITE + "Fluido almacenado: " + handFluid.fluid().toString());
+        lore.add(ChatColor.WHITE + "Cantidad de fluido: " + String.valueOf(handFluid.amount()));
         handMeta.setLore(lore);
         handItem.setItemMeta(handMeta);
 
@@ -128,7 +127,6 @@ public class FluidTank extends SlimefunItem implements Listener {
                     handFluid.amount() - 1000);
 
             handFluid = FluidStack.of(handFluid.fluid(), handFluid.amount() - 1000);
-
         }
 
         if (handFluid.amount() == 0) {
@@ -141,13 +139,12 @@ public class FluidTank extends SlimefunItem implements Listener {
         } else {
 
             ArrayList<String> lore = new ArrayList<>();
-            lore.add(ChatColor.WHITE + "Fluid Held: " + handFluid.fluid().toString());
-            lore.add(ChatColor.WHITE + "Fluid Amount: " + String.valueOf(handFluid.amount()));
+            lore.add(ChatColor.WHITE + "Fluido almacenado: " + handFluid.fluid().toString());
+            lore.add(ChatColor.WHITE + "Cantidad de fluido: " + String.valueOf(handFluid.amount()));
             handMeta.setLore(lore);
         }
 
         handItem.setItemMeta(handMeta);
-
         event.setItemStack(handItem);
     }
 
