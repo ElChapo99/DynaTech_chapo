@@ -6,82 +6,82 @@ import org.bukkit.NamespacedKey;
 
 import com.google.common.base.Preconditions;
 
-public class Liquid {
-    private NamespacedKey KEY;
-    private String NAME;
-    private Color LIQUID_COLOR;
-    private Material LIQUID_MATERIAL;
-    private Material STORAGE_MATERIAL;
+public class Liquido {
+    private NamespacedKey CLAVE;
+    private String NOMBRE;
+    private Color COLOR_LIQUIDO;
+    private Material MATERIAL_LIQUIDO;
+    private Material MATERIAL_ALMACENAMIENTO;
 
-    private Liquid() {
+    private Liquido() {
     }
 
-    public static Liquid init() {
-        return new Liquid();
+    public static Liquido init() {
+        return new Liquido();
     }
 
-    public Liquid setKey(NamespacedKey key) {
-        Preconditions.checkNotNull(key, "The liquid's key should not be null!");
-        this.KEY = key;
+    public Liquido setClave(NamespacedKey clave) {
+        Preconditions.checkNotNull(clave, "La clave del líquido no puede ser nula!");
+        this.CLAVE = clave;
         return this;
     }
 
-    public final NamespacedKey getKey() {
-        return this.KEY;
+    public final NamespacedKey getClave() {
+        return this.CLAVE;
     }
 
-    public Liquid setName(String name) {
-        Preconditions.checkNotNull(name, "The liquid's name should not be null!");
-        this.NAME = name;
+    public Liquido setNombre(String nombre) {
+        Preconditions.checkNotNull(nombre, "El nombre del líquido no puede ser nulo!");
+        this.NOMBRE = nombre;
         return this;
     }
 
-    public final String getName() {
-        return this.NAME;
+    public final String getNombre() {
+        return this.NOMBRE;
     }
 
-    public Liquid setColor(Color color) {
-        Preconditions.checkNotNull(color, " The Liquid's color should not be null!");
-        this.LIQUID_COLOR = color;
+    public Liquido setColor(Color color) {
+        Preconditions.checkNotNull(color, "El color del líquido no puede ser nulo!");
+        this.COLOR_LIQUIDO = color;
         return this;
     }
 
     public final Color getColor() {
-        return this.LIQUID_COLOR;
+        return this.COLOR_LIQUIDO;
     }
 
-    public Liquid setLiquidMaterial(Material mat) {
+    public Liquido setMaterialLiquido(Material mat) {
         Preconditions.checkArgument(mat == Material.LAVA || mat == Material.WATER,
-                "The liquid's liquid material should be a liquid!");
-        this.LIQUID_MATERIAL = mat;
+                "El material del líquido debe ser un líquido (agua o lava)!");
+        this.MATERIAL_LIQUIDO = mat;
         return this;
     }
 
-    public final Material getLiquidMaterial() {
-        return this.LIQUID_MATERIAL;
+    public final Material getMaterialLiquido() {
+        return this.MATERIAL_LIQUIDO;
     }
 
-    public Liquid setStorageMaterial(Material mat) {
-        Preconditions.checkNotNull(mat, "The Liquid's storage material should not be null!");
-        this.STORAGE_MATERIAL = mat;
+    public Liquido setMaterialAlmacenamiento(Material mat) {
+        Preconditions.checkNotNull(mat, "El material de almacenamiento del líquido no puede ser nulo!");
+        this.MATERIAL_ALMACENAMIENTO = mat;
         return this;
     }
 
-    public final Material getStorageMaterial() {
-        return this.STORAGE_MATERIAL;
+    public final Material getMaterialAlmacenamiento() {
+        return this.MATERIAL_ALMACENAMIENTO;
     }
 
-    public final Liquid build() {
-        Preconditions.checkNotNull(this.KEY, "The liquid's key should not be null!");
-        Preconditions.checkNotNull(this.NAME, "The liquid's name should not be null!");
-        Preconditions.checkNotNull(this.LIQUID_COLOR, " The Liquid's color should not be null!");
-        Preconditions.checkNotNull(this.LIQUID_MATERIAL, "The Liquid's liquid material should not be null!");
-        Preconditions.checkNotNull(this.STORAGE_MATERIAL, "The Liquid's storage material should not be null!");
+    public final Liquido build() {
+        Preconditions.checkNotNull(this.CLAVE, "La clave del líquido no puede ser nula!");
+        Preconditions.checkNotNull(this.NOMBRE, "El nombre del líquido no puede ser nulo!");
+        Preconditions.checkNotNull(this.COLOR_LIQUIDO, "El color del líquido no puede ser nulo!");
+        Preconditions.checkNotNull(this.MATERIAL_LIQUIDO, "El material del líquido no puede ser nulo!");
+        Preconditions.checkNotNull(this.MATERIAL_ALMACENAMIENTO, "El material de almacenamiento no puede ser nulo!");
         return this;
     }
 
-    public void register(LiquidRegistry registry) {
-        Liquid liquid = this.build();
-        registry.addLiquid(liquid);
+    public void registrar(LiquidRegistry registro) {
+        Liquido liquido = this.build();
+        registro.addLiquid(liquido);
     }
 }
