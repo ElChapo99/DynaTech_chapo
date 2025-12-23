@@ -28,9 +28,7 @@ public class PicnicBasketFeedPlayerEvent extends PlayerEvent implements Cancella
 
         this.picnicBasket = picnicBasket;
         this.picnicBasketItem = picnicBasketItem;
-        this.itemConsumed =itemConsumed;
-
-
+        this.itemConsumed = itemConsumed;
     }
 
     @Nonnull
@@ -49,10 +47,10 @@ public class PicnicBasketFeedPlayerEvent extends PlayerEvent implements Cancella
     }
 
     public void setConsumedItem(@Nonnull ItemStack item) {
-      Preconditions.checkNotNull(item, "Consumed item can not be null");
-      Preconditions.checkArgument(item.getType().isEdible(), "Item must be edible");
+        Preconditions.checkNotNull(item, "El objeto consumido no puede ser nulo");
+        Preconditions.checkArgument(item.getType().isEdible(), "El objeto debe ser comestible");
       
-      this.itemConsumed = item;
+        this.itemConsumed = item;
     }
 
     @Override
@@ -76,7 +74,4 @@ public class PicnicBasketFeedPlayerEvent extends PlayerEvent implements Cancella
         return getHandlerList();
     }
 
-
 }
-
-
