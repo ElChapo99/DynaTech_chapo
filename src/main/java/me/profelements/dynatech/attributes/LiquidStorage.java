@@ -15,9 +15,9 @@ import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.profelements.dynatech.DynaTech;
 
 /**
- * This interface, when attached to a class that inherits {@link SlimefunItem}, marks 
- * the item as an liquid containter.
- * This lets the item interact with registered liquids.
+ * Esta interfaz, cuando se adjunta a una clase que hereda de {@link SlimefunItem},
+ * marca el objeto como un contenedor de líquidos.
+ * Esto permite que el objeto interactúe con líquidos registrados.
  *
  */
 public interface LiquidStorage extends ItemAttribute {
@@ -37,8 +37,8 @@ public interface LiquidStorage extends ItemAttribute {
     }
 
     default int getLiquidAmount(@Nonnull BlockPosition l, Config config) {
-        Preconditions.checkNotNull(l, "Location was null");
-        Preconditions.checkNotNull(config, "Config was null");
+        Preconditions.checkNotNull(l, "La ubicación era nula");
+        Preconditions.checkNotNull(config, "La configuración era nula");
 
         if (!isFillable()) {
             return 0;
@@ -58,8 +58,8 @@ public interface LiquidStorage extends ItemAttribute {
     }
 
     default String getLiquid(@Nonnull BlockPosition l, @Nonnull Config config) {
-        Preconditions.checkNotNull(l, "Location was null");
-        Preconditions.checkNotNull(config, "Config was null");
+        Preconditions.checkNotNull(l, "La ubicación era nula");
+        Preconditions.checkNotNull(config, "La configuración era nula");
 
         String fluidName = config.getString("fluid-name");
 
@@ -71,8 +71,8 @@ public interface LiquidStorage extends ItemAttribute {
     }
 
     default void setLiquidAmount(@Nonnull BlockPosition l, int liquidAmount) {
-        Preconditions.checkNotNull("Location was null");
-        Preconditions.checkArgument(liquidAmount >= 0, "The fluid amount must be set to 0 or more");
+        Preconditions.checkNotNull("La ubicación era nula");
+        Preconditions.checkArgument(liquidAmount >= 0, "La cantidad de fluido debe ser 0 o mayor");
 
         try {
             int liquidCapacity = getLiquidCapacity();
@@ -85,13 +85,17 @@ public interface LiquidStorage extends ItemAttribute {
                 }
             }
         } catch (Exception | LinkageError x) {
-            DynaTech.getInstance().getLogger().log(Level.SEVERE, x,() -> "Exception while trying to set the fluid-amount for \"" + getId() + "\" at " + l);
+            DynaTech.getInstance().getLogger().log(
+                Level.SEVERE,
+                x,
+                () -> "Excepción al intentar establecer la cantidad de fluido para \"" + getId() + "\" en " + l
+            );
         }
     }
     
     default void addLiquidAmount(@Nonnull BlockPosition l, int liquidAmount) {
-        Preconditions.checkNotNull("Location was null");
-        Preconditions.checkArgument(liquidAmount > 0, "The fluid amount must be greater then 0");
+        Preconditions.checkNotNull("La ubicación era nula");
+        Preconditions.checkArgument(liquidAmount > 0, "La cantidad de fluido debe ser mayor que 0");
 
         try {
             int liquidCapacity = getLiquidCapacity();
@@ -105,13 +109,17 @@ public interface LiquidStorage extends ItemAttribute {
                 }
             }
         } catch (Exception | LinkageError x) {
-            DynaTech.getInstance().getLogger().log(Level.SEVERE, x,() -> "Exception while trying to add an fluid-amount for \"" + getId() + "\" at " + l);
+            DynaTech.getInstance().getLogger().log(
+                Level.SEVERE,
+                x,
+                () -> "Excepción al intentar añadir una cantidad de fluido para \"" + getId() + "\" en " + l
+            );
         }
     }
 
     default void removeLiquidAmount(@Nonnull BlockPosition l, int liquidAmount) {
-        Preconditions.checkNotNull("Location was null");
-        Preconditions.checkArgument(liquidAmount > 0, "The fluid amount must be greater then 0");
+        Preconditions.checkNotNull("La ubicación era nula");
+        Preconditions.checkArgument(liquidAmount > 0, "La cantidad de fluido debe ser mayor que 0");
         
         try {
             int liquidCapacity = getLiquidCapacity();
@@ -125,18 +133,22 @@ public interface LiquidStorage extends ItemAttribute {
             }
 
         } catch (Exception | LinkageError x) {
-            DynaTech.getInstance().getLogger().log(Level.SEVERE, x,() -> "Exception while trying to add an fluid-amount for \"" + getId() + "\" at " + l);
+            DynaTech.getInstance().getLogger().log(
+                Level.SEVERE,
+                x,
+                () -> "Excepción al intentar quitar una cantidad de fluido para \"" + getId() + "\" en " + l
+            );
         }
 
     }
 
     default void setLiquid(@Nonnull BlockPosition l, @Nullable String fluidName) {
-        Preconditions.checkNotNull(l, "Location was null");
+        Preconditions.checkNotNull(l, "La ubicación era nula");
 
         try {
             int liquidCapacity = getLiquidCapacity();
             
-            //changing fluids must happen when no other fluid is in the block
+            // Cambiar fluidos solo debe ocurrir cuando no hay otro fluido en el bloque
             if (liquidCapacity == 0) {
                 if (fluidName == null) {
                     BlockStorage.addBlockInfo(l.toLocation(), "fluid-name", "NO_LIQUID", false);
@@ -145,7 +157,11 @@ public interface LiquidStorage extends ItemAttribute {
                 }
             }
         } catch (Exception | LinkageError x) {
-            DynaTech.getInstance().getLogger().log(Level.SEVERE, x,() -> "Exception while trying to set the fluid-name for \"" + getId() + "\" at " + l);
+            DynaTech.getInstance().getLogger().log(
+                Level.SEVERE,
+                x,
+                () -> "Excepción al intentar establecer el nombre del fluido para \"" + getId() + "\" en " + l
+            );
         }
     }
 }
