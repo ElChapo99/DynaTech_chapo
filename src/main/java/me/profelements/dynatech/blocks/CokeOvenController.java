@@ -74,18 +74,19 @@ public class CokeOvenController extends SlimefunItem {
             @Override
             public void onRightClick(PlayerRightClickEvent event) {
                 if (validateMultiblock(event.getClickedBlock().get(), event.getPlayer().getFacing())) {
-                    validBlocks.add(new Pair<>(new BlockPosition(event.getClickedBlock().get().getLocation()),
+                    validBlocks.add(new Pair<>(
+                            new BlockPosition(event.getClickedBlock().get().getLocation()),
                             event.getPlayer().getFacing()));
 
                     BlockStorage.addBlockInfo(event.getClickedBlock().get(), "dynatech:valid", String.valueOf(true));
                     BlockStorage.addBlockInfo(event.getClickedBlock().get(), "dynatech:facing",
                             event.getPlayer().getFacing().toString());
 
-                    event.getPlayer().sendMessage("Coke Oven multiblock is valid.");
+                    event.getPlayer().sendMessage("El multibloque del Horno de Coque es válido.");
                 } else {
 
                     BlockStorage.addBlockInfo(event.getClickedBlock().get(), "dynatech:valid", String.valueOf(false));
-                    event.getPlayer().sendMessage("Coke Oven multiblock is not valid.");
+                    event.getPlayer().sendMessage("El multibloque del Horno de Coque no es válido.");
                 }
 
                 DynaTech.runSync(() -> {
@@ -97,7 +98,8 @@ public class CokeOvenController extends SlimefunItem {
 
     public void tickBlock(Block blk) {
 
-        // Check block storage for validity and add it to the Map if it is valid
+        // Verifica el almacenamiento del bloque para comprobar si es válido
+        // y lo añade al mapa si lo es
         String boolStr = BlockStorage.getLocationInfo(blk.getLocation(), "dynatech:valid");
         String facingStr = BlockStorage.getLocationInfo(blk.getLocation(), "dynatech:facing");
 
@@ -135,7 +137,6 @@ public class CokeOvenController extends SlimefunItem {
 
         if (PaperLib.getBlockState(inputBarrel, false).getState() instanceof Container container) {
             inputBarrelContainer = Optional.of(container);
-
         }
 
         if (PaperLib.getBlockState(outputBarrel, false).getState() instanceof Container oContainer) {
@@ -165,7 +166,7 @@ public class CokeOvenController extends SlimefunItem {
                 if (recipe.getInput().length == itemsToRemove.size()) {
 
                     blockPosToMaybeRecipe.put(pos, Optional.of(recipe));
-                    // 2 ticks per second at 80 seconds (160 ticks)
+                    // 2 ticks por segundo durante 80 segundos (160 ticks)
                     blockPosToTimeLeft.put(pos, 160);
 
                     for (int i = 0; i < brlInv.getSize(); i++) {
@@ -184,9 +185,8 @@ public class CokeOvenController extends SlimefunItem {
 
             }
         }
-        if (maybeRecipe.isPresent())
+        if (maybeRecipe.isPresent()) {
 
-        {
             int ticksLeft = blockPosToTimeLeft.get(pos);
             Location dropLoc = pos.getBlock().getRelative(facing.getOppositeFace()).getLocation();
             ticksLeft = ticksLeft - 1;
@@ -201,8 +201,7 @@ public class CokeOvenController extends SlimefunItem {
 
                     if (!map.isEmpty()) {
                         for (ItemStack extraStacks : map.values()) {
-                            pos.getWorld().dropItemNaturally(
-                                    dropLoc, extraStacks);
+                            pos.getWorld().dropItemNaturally(dropLoc, extraStacks);
                         }
                     }
 
@@ -219,10 +218,9 @@ public class CokeOvenController extends SlimefunItem {
         return new BlockBreakHandler(false, false) {
             @Override
             public void onPlayerBreak(BlockBreakEvent event, ItemStack tool, List<ItemStack> drops) {
-                validBlocks.removeIf(
-                        (pair -> {
-                            return pair.getFirstValue().equals(new BlockPosition(event.getBlock().getLocation()));
-                        }));
+                validBlocks.removeIf((pair -> {
+                    return pair.getFirstValue().equals(new BlockPosition(event.getBlock().getLocation()));
+                }));
 
                 BlockStorage.clearBlockInfo(event.getBlock());
             }
@@ -240,15 +238,17 @@ public class CokeOvenController extends SlimefunItem {
         BlockFace frontSide = rotateCounterClockwise(leftSide);
         BlockFace rightSide = rotateCounterClockwise(frontSide);
 
-        // back back left
-        Vector backCornerMod = new Vector(backSide.getModX() + backSide.getModX() + leftSide.getModX(),
+        // Esquina trasera izquierda (atrás, atrás, izquierda)
+        Vector backCornerMod = new Vector(
+                backSide.getModX() + backSide.getModX() + leftSide.getModX(),
                 backSide.getModY() + backSide.getModY() + leftSide.getModY(),
                 backSide.getModZ() + backSide.getModZ() + leftSide.getModZ());
+
         Vector rightSideMod = new Vector(rightSide.getModX(), rightSide.getModY(), rightSide.getModZ());
         Vector frontSideMod = new Vector(frontSide.getModX(), frontSide.getModY(), frontSide.getModZ());
         Location backLeftLocation = controllerBlock.getLocation().add(backCornerMod);
 
-        /// Bottom Back Left to Top Forward Right (BBL to TFR)
+        /// Desde la esquina inferior trasera izquierda hasta la esquina superior frontal derecha
 
         Predicate<Block>[][][] blockPreds = getMultiblockPattern();
         for (int z = 0; z < height; z++) {
@@ -271,7 +271,6 @@ public class CokeOvenController extends SlimefunItem {
         }
 
         return true;
-
     }
 
     private BlockFace rotateCounterClockwise(BlockFace facing) {
