@@ -6,32 +6,43 @@ import java.util.List;
 import org.bukkit.NamespacedKey;
 
 public class LiquidRegistry {
-    private static final ArrayList<Liquid> LIQUIDS = new ArrayList<>();
 
-    private static LiquidRegistry INSTANCE;
+    // Lista de todos los líquidos registrados
+    private static final ArrayList<Liquid> LIQUIDOS = new ArrayList<>();
+
+    // Instancia singleton del registro
+    private static LiquidRegistry INSTANCIA;
 
     private LiquidRegistry() {
-        INSTANCE = this;
+        INSTANCIA = this;
     }
 
+    // Devuelve la instancia actual del registro
     public static LiquidRegistry getInstance() {
-        return INSTANCE;
+        return INSTANCIA;
     }
 
+    // Inicializa el registro (crea la instancia singleton)
     public static LiquidRegistry init() {
         return new LiquidRegistry();
     }
 
+    // Agrega un líquido al registro
     public LiquidRegistry addLiquid(Liquid liquid) {
-        LIQUIDS.add(liquid);
+        LIQUIDOS.add(liquid);
         return this;
     }
 
+    // Obtiene la lista de todos los líquidos registrados
     public List<Liquid> getLiquids() {
-        return LIQUIDS;
+        return LIQUIDOS;
     }
 
+    // Obtiene un líquido a partir de su clave namespaced
     public final Liquid getByKey(NamespacedKey key) {
-        return getLiquids().stream().filter(r -> r.getKey().equals(key)).toList().get(0);
+        return getLiquids().stream()
+                .filter(r -> r.getKey().equals(key))
+                .toList()
+                .get(0);
     }
 }
