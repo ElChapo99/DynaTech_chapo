@@ -61,30 +61,27 @@ public abstract class AbstractGenerator extends AbstractContainer implements Mac
         return processingSpeed;
     }
 
-
     public final AbstractGenerator setEnergyCapacity(int capacity) {
-        Preconditions.checkArgument(capacity > 0, "The capacity must be greater then 0");
+        Preconditions.checkArgument(capacity > 0, "La capacidad debe ser mayor que 0");
 
         this.energyCapacity = capacity; 
         return this;
     }
 
     public final AbstractGenerator setEnergyProduction(int production) {
-        Preconditions.checkArgument(getCapacity() > 0, "Capacity must be set before consumption");
-        Preconditions.checkArgument(production < getCapacity() && production != 0, "Consuption can not be greater then capacity"); 
+        Preconditions.checkArgument(getCapacity() > 0, "La capacidad debe establecerse antes de la producción");
+        Preconditions.checkArgument(production < getCapacity() && production != 0, "La producción no puede ser mayor que la capacidad"); 
         
         this.energyProduction = production;
         return this;
     }
 
     public final AbstractGenerator setProcessingSpeed(int speed) {
-        Preconditions.checkArgument(speed > 0, "Speed must be greater then zero!"); 
+        Preconditions.checkArgument(speed > 0, "La velocidad debe ser mayor que cero"); 
 
         this.processingSpeed = speed; 
         return this; 
     }
-
-
 
     @Nonnull
     @Override
@@ -136,9 +133,9 @@ public abstract class AbstractGenerator extends AbstractContainer implements Mac
     @Nonnull
     protected abstract ItemStack getProgressBar();
 
-    protected boolean checkFuelPreconditions(Block b) { return true; };
+    protected boolean checkFuelPreconditions(Block b) { return true; }
     
-    protected boolean onFuelFinish(BlockMenu menu, ItemStack[] ingredients) { return true; };
+    protected boolean onFuelFinish(BlockMenu menu, ItemStack[] ingredients) { return true; }
 
     protected void addOutputs(BlockMenu menu, Block b, ItemStack[] outputs) {
         for (ItemStack output: outputs) {
@@ -180,7 +177,7 @@ public abstract class AbstractGenerator extends AbstractContainer implements Mac
 
                     boolean isFinished = onFuelFinish(menu, new ItemStack[] { currentOp.getIngredient() }); 
                     if (isFinished) {
-                        addOutputs(menu, b, new ItemStack[] {currentOp.getResult()}); 
+                        addOutputs(menu, b, new ItemStack[] { currentOp.getResult() }); 
                     }
 
                     processor.endOperation(b);
