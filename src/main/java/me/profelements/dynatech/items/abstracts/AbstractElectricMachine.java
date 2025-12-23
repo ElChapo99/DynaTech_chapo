@@ -60,28 +60,27 @@ public abstract class AbstractElectricMachine extends AbstractMachine implements
         return processingSpeed;
     }
 
-
     public List<MachineRecipe> getRecipes() {
         return recipes;
     }
 
     public final AbstractElectricMachine setCapacity(int capacity) {
-        Preconditions.checkArgument(capacity > 0, "The capacity must be greater then 0");
+        Preconditions.checkArgument(capacity > 0, "La capacidad debe ser mayor que 0");
 
         this.energyCapacity = capacity; 
         return this;
     }
 
     public final AbstractElectricMachine setConsumption(int consumption) {
-        Preconditions.checkArgument(getCapacity() > 0, "Capacity must be set before consumption");
-        Preconditions.checkArgument(consumption < getCapacity() && consumption != 0, "Consuption can not be greater then capacity"); 
+        Preconditions.checkArgument(getCapacity() > 0, "La capacidad debe establecerse antes del consumo");
+        Preconditions.checkArgument(consumption < getCapacity() && consumption != 0, "El consumo no puede ser mayor que la capacidad"); 
         
         this.energyConsumedPerTick = consumption;
         return this;
     }
 
     public final AbstractElectricMachine setProcessingSpeed(int speed) {
-        Preconditions.checkArgument(speed > 0, "Speed must be greater then zero!"); 
+        Preconditions.checkArgument(speed > 0, "La velocidad debe ser mayor que cero"); 
 
         this.processingSpeed = speed; 
         return this; 
@@ -105,7 +104,7 @@ public abstract class AbstractElectricMachine extends AbstractMachine implements
     }
 
     protected boolean takeCharge(Location l) {
-        Preconditions.checkNotNull(l, "Can't take energy from a null location"); 
+        Preconditions.checkNotNull(l, "No se puede tomar energía de una ubicación nula"); 
 
         if (isChargeable()) {
             int charge = getCharge(l); 
@@ -121,7 +120,7 @@ public abstract class AbstractElectricMachine extends AbstractMachine implements
 
     @Nullable
     @Override
-	public MachineRecipe findNextRecipe(BlockMenu menu) {
+    public MachineRecipe findNextRecipe(BlockMenu menu) {
         Map<Integer, ItemStack> inv = new HashMap<>();
 
         for (int slot : getInputSlots()) {
@@ -140,7 +139,9 @@ public abstract class AbstractElectricMachine extends AbstractMachine implements
             }
         }
 
-        if (maxedSlots == getOutputSlots().length) { return null; }
+        if (maxedSlots == getOutputSlots().length) { 
+            return null; 
+        }
 
         Map<Integer, Integer> found = new HashMap<>();
 
@@ -155,8 +156,8 @@ public abstract class AbstractElectricMachine extends AbstractMachine implements
             }
 
             if (found.size() == recipe.getInput().length) {
-                if(!InvUtils.fitAll(menu.toInventory(), recipe.getOutput(), getOutputSlots())) {
-                        return null;
+                if (!InvUtils.fitAll(menu.toInventory(), recipe.getOutput(), getOutputSlots())) {
+                    return null;
                 }
                 
                 for (Map.Entry<Integer, Integer> entry : found.entrySet()) {
